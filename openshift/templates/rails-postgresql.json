@@ -484,7 +484,7 @@
       "displayName": "Git Repository URL",
       "required": true,
       "description": "The URL of the repository with your application source code.",
-      "value": "http://gitlab.internal-techieslounge.com/freddy/web-example.git"
+      "value": "https://github.com/Freddy-Montero/rails-webapp-ex.git"
     },
     {
       "name": "SOURCE_REPOSITORY_REF",
