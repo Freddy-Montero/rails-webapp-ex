@@ -30,7 +30,7 @@ node {
     active = readFile('activesvc.txt').trim()
     if (active == "green") {
       dest = "blue"
-    } else (active == "blue") {
+    } else if (active == "blue") {
       dest = "green"
     }
     echo "Active svc: " + active
