@@ -8,7 +8,7 @@ items:
     source:
       type: "Git"
       git:
-        uri: "http://github.com/Freddy-Montero/rails-webapp-ex/openshift/templates"
+        uri: "https://github.com/Freddy-Montero/rails-webapp-ex.git"
     strategy:
       type: "JenkinsPipeline"
       jenkinsPipelineStrategy:
