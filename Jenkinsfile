@@ -6,9 +6,8 @@ node {
   // Blue/Green Deployment into Production
   // -------------------------------------
   def project  = ""
-  def dest     = "blue"
+  def dest     = ""
   def active   = ""
-  def newcolor = ""
 
   switch (BUILD_NUMBER.toInteger() % 10) {
     case 1:
@@ -34,15 +33,6 @@ node {
     }
     echo "Active svc: " + active
     echo "Dest svc:   " + dest
-  }
-
-  stage('Build new version') {
-    // Building in this case means simply changing the environment
-    // variable newcolor in the deployment configuration.
-    // There is not Build Configuration since this is a straight
-    // up Docker Image deployment.
-    echo "Building ${dest}"
-    sh "oc set env dc ${dest} COLOR=${newcolor}"
   }
 
   stage('Switch over to new Version') {
