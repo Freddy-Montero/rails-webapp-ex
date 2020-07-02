@@ -23,7 +23,9 @@ node {
     // Determine current project
     sh "oc get project|grep -v NAME|awk '{print \$1}' >project.txt"
     project = readFile('project.txt').trim()
-    sh "oc get route example -n ${project} -o jsonpath='{ .spec.to.name }' > activesvc.txt"
+    sh "oc get route|grep -v NAME|egrep -v jenkins |awk '{print \$1}' >route.txt"
+    route = readFile('route.txt').trim()
+    sh "oc get route ${route} -n ${project} -o jsonpath='{ .spec.to.name }' > activesvc.txt"
 
     // Determine currently active Service
     active = readFile('activesvc.txt').trim()
@@ -53,8 +55,8 @@ node {
   }
   stage('Switch over to new Version') {
     input "Switch Production?"
-    sh 'oc patch route example -p \'{"spec":{"to":{"name":"' + dest + '"}}}\''
-    sh 'oc get route example > oc_out.txt'
+    sh 'oc patch route ${route} -p \'{"spec":{"to":{"name":"' + dest + '"}}}\''
+    sh 'oc get route ${route} > oc_out.txt'
     oc_out = readFile('oc_out.txt')
     echo "Current route configuration: " + oc_out
   }
