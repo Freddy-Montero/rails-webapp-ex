@@ -46,13 +46,6 @@ node {
     sh "oc set env dc ${dest} COLOR=${newcolor}"
   }
 
-  stage('Deploy new Version') {
-    echo "Deploying to ${dest}"
-
-    openshiftDeploy depCfg: dest, namespace: project, verbose: 'false', waitTime: '', waitUnit: 'sec'
-    openshiftVerifyDeployment depCfg: dest, namespace: project, replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
-    openshiftVerifyService namespace: project, svcName: dest, verbose: 'false'
-  }
   stage('Switch over to new Version') {
     input "Switch Production?"
     sh 'oc patch route ${route} -p \'{"spec":{"to":{"name":"' + dest + '"}}}\''
