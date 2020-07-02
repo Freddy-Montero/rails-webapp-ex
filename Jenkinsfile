@@ -49,7 +49,7 @@ node {
     input "Switch Production?"
     sh "oc get route|grep -v NAME|egrep -v jenkins |awk '{print \$1}' >route.txt"
     route = readFile('route.txt').trim()
-    sh 'oc patch route $route -p \'{"spec":{"to":{"name":"' + dest + '"}}}\''
+    sh 'oc patch route bluegreen -p \'{"spec":{"to":{"name":"' + dest + '"}}}\''
     sh "oc get route ${route} > oc_out.txt"
     oc_out = readFile('oc_out.txt')
     echo "Current route configuration: " + oc_out
